@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youssef & Doha Wedding Invitation</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --dark: #111111;
+            --glass: rgba(255, 255, 255, 0.85);
+            --text: #2c2c2c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Playfair Display', serif;
+            background-color: var(--dark);
+            overflow: hidden;
+            color: var(--text);
+        }
+
+        /* --- شاشة المدخل السينمائية --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s;
+        }
+
+        .sparkle-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: transparent;
+            background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255,215,0,0.2);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInLogo 2.5s forwards ease-in-out;
+        }
+
+        @keyframes fadeInLogo {
+            0% { opacity: 0; transform: scale(0.8); filter: drop-shadow(0 0 0rem rgba(212,175,55,0)); }
+            50% { opacity: 0.5; filter: drop-shadow(0 0 1.5rem rgba(212,175,55,0.5)); }
+            100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 0.5rem rgba(212,175,55,0.3)); }
+        }
+
+        .enter-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            padding: 12px 35px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px rgba(212,175,55,0.1);
+            opacity: 0;
+            animation: fadeInBtn 1.5s 1.5s forwards;
+        }
+
+        .enter-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(212,175,55,0.4);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInBtn {
+            to { opacity: 1; }
+        }
+
+        /* --- الخلفية والمحتوى الرئيسي --- */
+        #main-content {
+            opacity: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.4)), 
+                        url('https://images.unsplash.com/photo-1604014237800-1c9102c219da?q=80&w=2070') no-repeat center center/cover;
+            /* صورة قصر/أعمدة كلاسيكية راقية كخلفية افتراضية */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 2s ease-in-out;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        /* كارت الدعوة الزجاجي */
+        .invitation-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            width: 90%;
+            max-width: 450px;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-top: 3px solid var(--gold);
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #111;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .ampersand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin: 5px 0;
+        }
+
+        .sub-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .details-box {
+            border-top: 1px solid rgba(212,175,55,0.3);
+            border-bottom: 1px solid rgba(212,175,55,0.3);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-item span {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        /* الأزرار والفورم */
+        .action-btn {
+            background: linear-gradient(135deg, #bf953f, #b38728);
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(179,135,40,0.3);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(179,135,40,0.5);
+        }
+
+        /* فورم تأكيد الحضور السلس */
+        #rsvp-section {
+            display: none;
+            margin-top: 25px;
+            text-align: left;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 5px;
+            color: #444;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--gold);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+        }
+
+        .radio-label input {
+            width: auto;
+        }
+
+        /* رسالة الشكر */
+        #thank-you-msg {
+            display: none;
+            font-size: 1.2rem;
+            color: #111;
+            margin-top: 20px;
+            font-style: italic;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        /* أنيميشن بتلات الورد المتساقطة */
+        .petal {
+            position: absolute;
+            background-color: #ffb7c5; /* سيتغير اللون برمجياً للأبيض والذهبي */
+            border-radius: 0 50% 0 50%;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            transform: translate(0, 0) rotate(0deg);
+            to {
+                transform: translate(100px, 105vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- موسيقى الخلفية الهادئة (رابط افتراضي لموسيقى بيانو سينمائية راقية) -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- شاشة المدخل (Intro) -->
+    <div id="intro-overlay">
+        <div class="sparkle-logo">Y & D</div>
+        <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
+    </div>
+
+    <!-- المحتوى الرئيسي (Main Content) -->
+    <div id="main-content">
+        <div class="invitation-card">
+            
+            <div id="invitation-details">
+                <h1 class="main-title">Youssef</h1>
+                <div class="ampersand">&</div>
+                <h1 class="main-title" style="margin-bottom: 15px;">Doha</h1>
+                <p class="sub-title">Wedding Celebration</p>
+                
+                <p class="tagline">"Together with our families, we invite you to celebrate our special day."</p>
+                
+                <div class="details-box">
+                    <div class="detail-item">📅 <span>17 August 2026</span></div>
+                    <div class="detail-item">🕖 <span>7:00 PM</span></div>
+                    <div class="detail-item">📍 <span>Besto Café</span></div>
+                </div>
+
+                <button class="action-btn" id="reveal-rsvp-btn" onclick="showRSVP()">Confirm Attendance</button>
+            </div>
+
+            <!-- نموذج الحضور (RSVP Form) -->
+            <form id="rsvp-section" onsubmit="submitRSVP(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <select id="guests">
+                        <option value="1">1 (Just Me)</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Will you attend?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="attend" value="Yes" checked> Yes, I'll be there
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attend" value="No"> Sorry, I can't
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="action-btn" style="margin-top: 10px;">✨ Confirm</button>
+            </form>
+
+            <!-- رسالة الشكر النهائي -->
+            <div id="thank-you-msg">
+                Thank you for being part of our special day. We look forward to celebrating with you. ❤️
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // دالة فتح الدعوة وتفعيل الصوت والخلفية
+        function openInvitation() {
+            // تشغيل الموسيقى
+            const music = document.getElementById('bg-music');
+            music.play().catch(error => console.log("Audio autoplay restriction bypassed."));
+
+            // إخفاء شاشة البداية بسلاسة
+            const intro = document.getElementById('intro-overlay');
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.visibility = 'hidden';
+            }, 1500);
+
+            // إظهار المحتوى الرئيسي
+            const mainContent = document.getElementById('main-content');
+            mainContent.style.opacity = '1';
+            document.body.style.overflow = 'auto'; // السماح بالتمرير إذا لزم الأمر
+        }
+
+        // إظهار كارت الحضور
+        function showRSVP() {
+            document.getElementById('reveal-rsvp-btn').style.display = 'none';
+            document.getElementById('rsvp-section').style.display = 'block';
+        }
+
+        // إرسال الفورم وتأثير بتلات الورد
+        function submitRSVP(event) {
+            event.preventDefault();
+
+            // سحب البيانات (جاهزة للإرسال إلى الـ Dashboard الخاصة بك لاحقاً)
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const guests = document.getElementById('guests').value;
+            const attend = document.querySelector('input[name="attend"]:checked').value;
+
+            console.log("Captured Data:", { name, phone, guests, attend });
+
+            // إخفاء الفورم وإظهار رسالة الشكر
+            document.getElementById('rsvp-section').style.display = 'none';
+            const thankYou = document.getElementById('thank-you-msg');
+            thankYou.style.display = 'block';
+
+            // إذا وافق على الحضور، نطلق بتلات الورد الذهبية والبيضاء
+            if (attend === 'Yes') {
+                createPetalShower();
+            }
+        }
+
+        // تأثير تساقط بتلات الورد الفاخرة
+        function createPetalShower() {
+            const colors = ['#f3e5ab', '#ffffff', '#d4af37', '#fffdd0']; // درجات الذهبي والأبيض الفاخر
+            
+            for (let i = 0; i < 50; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // خصائص عشوائية لكل بتلة لتبدو طبيعية
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = -Math.random() * 20 + 'px';
+                petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = Math.random() * 8 + 7; // حجم بين 7 و 15 بكسل
+                petal.style.width = size + 'px';
+                petal.style.height = (size * 1.5) + 'px';
+                
+                petal.style.animationDuration = Math.random() * 2 + 3 + 's'; // سرعة السقوط
+                petal.style.animationDelay = Math.random() * 1 + 's';
+                
+                document.body.appendChild(petal);
+
+                // تنظيف المتصفح وحذف البتلة بعد انتهاء الأنيميشن
+                setTimeout(() => {
+                    petal.remove();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+  </html>
+  
