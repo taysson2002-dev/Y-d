@@ -1,178 +1,85 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youssef & Doha Wedding</title>
+    <title>Youssef & Doha Wedding Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Amiri&display=swap" rel="stylesheet">
+    
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Playfair Display', serif; background-color: #fcf8f2; color: #333; overflow: hidden; }
+        :root {
+            --gold: #c5a059;
+            --bg-color: #fcf8f2;
+            --text-color: #4a4a4a;
+        }
 
-        #opening-screen {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { height: 100%; font-family: 'Playfair Display', serif; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* زر تبديل اللغة في الأعلى */
+        .lang-switcher {
+            position: fixed;
+            top: 15px; right: 15px;
+            z-index: 2000;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--gold);
+            padding: 5px 15px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* --- شاشة الظرف الافتتاحية --- */
+        #envelope-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #111;
+            background: #eadecd;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            color: #d4af37;
-            transition: opacity 1.5s ease;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        .opening-text { font-family: 'Cinzel', serif; font-size: 2rem; margin-bottom: 2rem; letter-spacing: 4px; opacity: 0; animation: fadeInText 2s ease-in-out forwards; }
-
-        .open-btn {
-            background: transparent;
-            border: 2px solid #d4af37;
-            color: #d4af37;
-            padding: 15px 40px;
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInBtn 2s 1s ease-in-out forwards;
-        }
-
-        .open-btn:hover { background: #d4af37; color: #111; }
-
-        @keyframes fadeInText { to { opacity: 1; } }
-        @keyframes fadeInBtn { to { opacity: 1; } }
-
-        #main-content {
-            height: 100%;
-            overflow-y: auto;
+        .envelope {
+            width: 90%; max-width: 400px;
+            height: 280px;
+            background: #dfd3c3;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
             position: relative;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600057010411-9252329e46a7?q=80') no-repeat center center/cover;
+            border-radius: 0 0 10px 10px;
+            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 2s ease;
         }
 
-        .invitation-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 50px 30px;
-            border-radius: 20px;
-            text-align: center;
-            width: 85%;
-            max-width: 450px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            border-top: 5px solid #d4af37;
+        /* غطاء الظرف السفلي والعلوي الجمالي */
+        .envelope::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 0; height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 140px solid #f0e7db;
+            z-index: 2; pointer-events: none;
+            transform-origin: bottom;
+        }
+        @media(max-width: 440px) {
+            .envelope::before { border-left-width: 45vw; border-right-width: 45vw; }
         }
 
-        h1 { font-family: 'Cinzel', serif; font-size: 2.5rem; color: #222; margin: 10px 0; }
-        .ampersand { font-style: italic; color: #d4af37; font-size: 3rem; margin: 10px 0; }
-        .details { margin: 30px 0; line-height: 2; font-size: 1.1rem; }
-        .btn { display: inline-block; padding: 12px 30px; background: #d4af37; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; font-family: 'Cinzel', serif; font-size: 0.9rem; transition: background 0.3s; border: none; cursor: pointer; }
-        .btn:hover { background: #b8902a; }
-        .map-btn { background: #444; }
-        .map-btn:hover { background: #333; }
-
-        #rsvp-form { margin-top: 30px; text-align: left; display: none; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-family: 'Cinzel', serif; font-size: 0.8rem; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-
-        .petal { position: absolute; background-color: #fffdd0; border-radius: 0 50% 0 50%; opacity: 0.7; animation: fall linear infinite; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-    </style>
-</head>
-<body>
-
-    <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="opening-screen">
-        <div class="opening-text">Y & D</div>
-        <button class="open-btn" onclick="openInvitation()">Open Invitation</button>
-    </div>
-
-    <div id="main-content">
-        <div class="invitation-card">
-            <p>Save The Date</p>
-            <h1>Youssef</h1>
-            <div class="ampersand">&</div>
-            <h1>Doha</h1>
-            <div class="details">
-                <p>17 August 2026</p>
-                <p>7:00 PM</p>
-                <p>Besto Café, Alexandria</p>
-            </div>
+        /* ختم الشمعة الكلاسيكي الدائري */
+        .wax-seal {
+            width: 70px; height: 70px;
+            background: #a33835;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 105px; z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.3);
+            display: flex; justify-content: center; align-items: center;
+            color: #eadecd; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1.
             
-            <a href="https://maps.app.goo.gl/PLACEHOLDER_LOCATION" class="btn map-btn" target="_blank">View Location</a>
-            <br>
-            <button class="btn" onclick="document.getElementById('rsvp-form').style.display = 'block'; this.style.display = 'none';">Confirm Attendance</button>
-
-            <form id="rsvp-form" onsubmit="event.preventDefault(); showThankYou();">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" required>
-                </div>
-                <div class="form-group">
-                    <label>Number of Guests</label>
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Will you attend?</label>
-                    <select>
-                        <option>Yes</option>
-                        <option>No</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn">Submit</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function openInvitation() {
-            var music = document.getElementById('bg-music');
-            music.play().catch(function(error) { console.log("Audio play blocked by browser."); });
-            
-            var opening = document.getElementById('opening-screen');
-            opening.style.opacity = '0';
-            setTimeout(function() { opening.style.display = 'none'; }, 1500);
-
-            var main = document.getElementById('main-content');
-            main.style.opacity = '1';
-        }
-
-        function showThankYou() {
-            var card = document.querySelector('.invitation-card');
-            card.innerHTML = '<h1>Thank You</h1><p>We can\'t wait to celebrate with you. ❤️</p>';
-            createPetals();
-        }
-
-        function createPetals() {
-            for (let i = 0; i < 30; i++) {
-                let petal = document.createElement('div');
-                petal.classList.add('petal');
-                petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.top = '-50px';
-                petal.style.width = Math.random() * 10 + 10 + 'px';
-                petal.style.height = Math.random() * 15 + 15 + 'px';
-                petal.style.animationDuration = Math.random() * 3 + 2 + 's';
-                document.body.appendChild(petal);
-                setTimeout(() => petal.remove(), 5000);
-            }
-        }
-    </script>
-</body>
-</html>
