@@ -1,85 +1,383 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youssef & Doha Wedding Invitation</title>
+    <title>دعوة زفاف يوسف وضحى</title>
+    <!-- خطوط جوجل للحصول على مظهر أنيق -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --gold: #c5a059;
-            --bg-color: #fcf8f2;
-            --text-color: #4a4a4a;
+            --bg-color: #2b110c; /* اللون البني الداكن الفخم من الفيديو */
+            --gold-color: #d4af37;
+            --text-light: #f9f6f0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { height: 100%; font-family: 'Playfair Display', serif; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        /* زر تبديل اللغة في الأعلى */
-        .lang-switcher {
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* حاوية الهاتف الذكي لمحاكاة العرض */
+        .phone-container {
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* --- 1. شاشة المغلف (Envelope) --- */
+        .envelope-screen {
             position: fixed;
-            top: 15px; right: 15px;
-            z-index: 2000;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid var(--gold);
-            padding: 5px 15px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+
+        .envelope-card {
+            width: 80%;
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: #333;
+            position: relative;
+            border: 2px solid var(--gold-color);
+        }
+
+        .envelope-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--bg-color);
+            margin-bottom: 10px;
+        }
+
+        .open-btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: var(--bg-color);
+            color: var(--gold-color);
+            border: 1px solid var(--gold-color);
             border-radius: 20px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
 
-        /* --- شاشة الظرف الافتتاحية --- */
-        #envelope-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #eadecd;
+        .open-btn:hover {
+            background-color: var(--gold-color);
+            color: var(--bg-color);
+        }
+
+        /* مخفي عند الفتح */
+        .envelope-screen.opened {
+            transform: translate(-50%, -100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- 2. المحتوى الرئيسي للموقع --- */
+        .main-content {
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            padding-bottom: 60px;
+        }
+
+        .main-content.show {
+            opacity: 1;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .names-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold-color);
+            margin: 20px 0;
+        }
+
+        .date-text {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        /* العداد التنازلي */
+        .countdown-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            justify-content: space-around;
+            margin-top: 20px;
         }
 
-        .envelope {
-            width: 90%; max-width: 400px;
-            height: 280px;
-            background: #dfd3c3;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            position: relative;
-            border-radius: 0 0 10px 10px;
+        .countdown-item {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            width: 22%;
+            border: 1px solid var(--gold-color);
+        }
+
+        .countdown-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold-color);
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+        }
+
+        /* استمارة RSVP */
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: right;
+        }
+
+        .rsvp-form label {
+            color: var(--gold-color);
+            font-weight: bold;
+        }
+
+        .rsvp-form input[type="text"], .rsvp-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gold-color);
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background: var(--gold-color);
+            color: var(--bg-color);
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #fff;
+        }
+
+        /* زر التحكم في الموسيقى العائم */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--gold-color);
+            color: var(--bg-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+            z-index: 99;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+    </style>
+</head>
+<body>
 
-        /* غطاء الظرف السفلي والعلوي الجمالي */
-        .envelope::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; width: 0; height: 0;
-            border-left: 200px solid transparent;
-            border-right: 200px solid transparent;
-            border-bottom: 140px solid #f0e7db;
-            z-index: 2; pointer-events: none;
-            transform-origin: bottom;
-        }
-        @media(max-width: 440px) {
-            .envelope::before { border-left-width: 45vw; border-right-width: 45vw; }
-        }
+    <!-- ملف الصوت للأغنية -->
+    <audio id="weddingMusic" loop>
+        <source src="wedding-song.mp3" type="audio/mpeg">
+    </audio>
 
-        /* ختم الشمعة الكلاسيكي الدائري */
-        .wax-seal {
-            width: 70px; height: 70px;
-            background: #a33835;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 105px; z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.3);
-            display: flex; justify-content: center; align-items: center;
-            color: #eadecd; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1.
+    <!-- زر الموسيقى العائم -->
+    <div class="audio-control" id="audioToggle" onclick="toggleAudio()">🎵</div>
+
+    <div class="phone-container">
+        
+        <!-- شاشة فتح المغلف -->
+        <div class="envelope-screen" id="envelopeScreen">
+            <div class="envelope-card">
+                <h2>SAVE THE DATE</h2>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 5px;">YOUSSEF & DOHA</p>
+                <button class="open-btn" onclick="openEnvelope()">OPEN THE ENVELOPE</button>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي للدعوة -->
+        <div class="main-content" id="mainContent">
             
+            <!-- مقدمة والأسماء -->
+            <div class="section">
+                <p style="font-style: italic; color: var(--gold-color);">We're getting married!</p>
+                <h1 class="names-title">YOUSSEF<br>&<br>DOHA</h1>
+                <p class="date-text">17 . 08 . 2026</p>
+                <p style="font-size: 1.1rem; margin-top: 10px;">07:00 PM</p>
+                <p style="color: var(--gold-color); margin-top: 5px;">DIVA HALL</p>
+            </div>
+
+            <!-- العداد التنازلي -->
+            <div class="section">
+                <p style="letter-spacing: 2px; margin-bottom: 10px;">A SPECIAL DAY IS COMING</p>
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">أيام</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">ساعات</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">دقائق</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">ثواني</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تأكيد الحضور RSVP -->
+            <div class="section">
+                <h3 style="color: var(--gold-color); margin-bottom: 20px; text-align: center;">تأكيد الحضور (RSVP)</h3>
+                <form class="rsvp-form" onsubmit="handleRSVP(event)">
+                    <div>
+                        <label>الاسم الكريم:</label>
+                        <input type="text" required placeholder="يرجى كتابة اسمك هنا">
+                    </div>
+                    
+                    <div>
+                        <label>هل ستشرفنا بالحضور؟</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="attend" value="yes" checked> بكل سرور سأحضر</label>
+                            <label><input type="radio" name="attend" value="no"> أعتذر عن الحضور</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>هل لديك أطفال بصحبتك؟</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="children" value="yes"> نعم</label>
+                            <label><input type="radio" name="children" value="no" checked> لا</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>تهنئة للعروسين:</label>
+                        <textarea rows="3" placeholder="اكتب تهنئتك الجميلة هنا..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">إرسال التأكيد</button>
+                </form>
+            </div>
+
+            <!-- الخاتمة -->
+            <div style="margin-top: 40px; opacity: 0.7; font-size: 0.9rem;">
+                <p>WE CAN'T WAIT TO CELEBRATE TOGETHER</p>
+                <p style="color: var(--gold-color); margin-top: 10px;">DESIGNED FOR YOUSSEF & DOHA</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('weddingMusic');
+
+        // دالة فتح المغلف وتشغيل الموسيقى
+        function openEnvelope() {
+            document.getElementById('envelopeScreen').classList.add('opened');
+            document.getElementById('mainContent').classList.add('show');
+            
+            audio.play().catch(error => console.log("Audio play blocked until interaction."));
+        }
+
+        // التحكم في إيقاف وتشغيل الصوت يدوياً
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                document.getElementById('audioToggle').innerText = "🎵";
+            } else {
+                audio.pause();
+                document.getElementById('audioToggle').innerText = "🔇";
+            }
+        }
+
+        // العداد التنازلي لتاريخ 17 أغسطس 2026 الساعة 7 مساءً
+        const targetDate = new Date("August 17, 2026 19:00:00").getTime();
+
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+
+            if (difference < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+            }
+        }, 1000);
+
+        function handleRSVP(event) {
+            event.preventDefault();
+            alert("تم حفظ ردك وتأكيد حضورك بنجاح! ننتظركم بكل حب.");
+        }
+    </script>
+</body>
+</html>
